@@ -9,6 +9,6 @@ class CleanSettings::InstallGenerator < Rails::Generators::Base
   end
 
   def generate_files
-    migration_template 'migration.rb', 'db/migrate/create_clean_settings_table.rb'
+    migration_template 'migration.rb', 'db/migrate/clean_settings_migration.rb'
   end
 end

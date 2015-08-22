@@ -43,7 +43,7 @@ RSpec.configure do |config|
   config.after :suite do
     require File.expand_path('../../lib/generators/clean_settings/templates/migration.rb', __FILE__)
 
-    CreateConfirmedAttributesTables.migrate(:down)
+    CleanSettingsMigration.migrate(:down)
   end
 end
 

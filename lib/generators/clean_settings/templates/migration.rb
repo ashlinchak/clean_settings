@@ -1,4 +1,4 @@
-class CreateConfirmedAttributesTables < ActiveRecord::Migration
+class CleanSettingsMigration < ActiveRecord::Migration
   def self.up
     create_table :clean_settings do |t|
       t.string :var, null: false
