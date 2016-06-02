@@ -3,8 +3,17 @@ module CleanSettings
     self.table_name = "clean_settings"
 
     class SettingNotFound < RuntimeError; end
+    class Defaults < OpenStruct
+      def [](name)
+        send name.to_sym
+      end
 
-    @@defaults = OpenStruct.new
+      def []=(name, value)
+        send "#{name.to_sym}=", value
+      end
+    end
+
+    @@defaults = Defaults.new
 
     def value
       YAML::load(self[:value])
@@ -16,27 +25,27 @@ module CleanSettings
 
     class << self
       def defaults
-        @@defaults ||= OpenStruct.new
+        @@defaults ||= Defaults.new
       end
 
       def fetch_defaults
-        @@defaults.to_h.with_indifferent_access
+        @@defaults.marshal_dump.with_indifferent_access
       end
       alias_method :all_defaults, :fetch_defaults
 
       def defaults=(key, value)
-        @@defaults[:key] = value
+        @@defaults.send("#{key}=", value)
       end
 
       def clear_defaults
-        @@defaults = OpenStruct.new
+        @@defaults = Defaults.new
       end
 
       def [](var_name)
         if var = object(var_name)
           var.value
-        elsif @@defaults[var_name.to_s]
-          @@defaults[var_name.to_s]
+        elsif @@defaults.send(var_name.to_sym)
+          @@defaults.send(var_name.to_sym)
         else
           nil
         end
@@ -54,7 +63,7 @@ module CleanSettings
 
       def destroy(var_name)
         var_name = var_name.to_s
-        
+
         if obj = object(var_name)
           obj.destroy
           true
@@ -64,7 +73,7 @@ module CleanSettings
       end
 
       def fetch_globals
-        vars = with_owner.select(:var, :value)
+        vars = with_owner.select([:var, :value])
 
         result = {}
         vars.each { |record| result[record.var] = record.value }
@@ -88,7 +97,7 @@ module CleanSettings
       end
 
       def object(var_name)
-        with_owner.find_by(var: var_name)
+        with_owner.where(var: var_name).first
       end
 
       def method_missing(method, *args, &block)

@@ -1,7 +1,7 @@
 $LOAD_PATH << File.join(File.dirname(__FILE__), '..', 'lib')
 
 require 'bundler/setup'
-require "active_record"
+require 'active_record'
 require 'active_support'
 require 'sqlite3'
 require 'clean_settings'

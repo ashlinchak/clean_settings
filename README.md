@@ -2,6 +2,14 @@
 
 CleanSettings - it's simple and clean settings for your Rails project.
 
+## Requirements
+For version 1.1.2:
+* Ruby 1.9.3
+* Rails 3.2.22
+
+For version 1.1.1:
+* Ruby 2.0.0
+* Rails 4.0.0
 
 ## Installation
 
@@ -124,8 +132,6 @@ And use it:
 @user.settings.subscribe_to_notifications = true
 @user.settings.subscribe_to_notifications # => true
 ```
-
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/ashlinchak/clean_settings.
-

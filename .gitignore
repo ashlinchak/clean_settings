@@ -11,3 +11,4 @@
 .travis.yml
 *.gem
 /dummy/
+.ruby-version
