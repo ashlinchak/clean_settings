@@ -13,34 +13,34 @@ describe CleanSettings::HasSettings do
 
   describe "with user" do
     it "set settings for specific user" do
-      @user.settings.number = @number
-      @user.settings.string = @string
-      @user.settings.h = @h
-      @user.settings.array = @array
-      @user.settings.boolean = @boolean
+      @user.clean_settings.number = @number
+      @user.clean_settings.string = @string
+      @user.clean_settings.h = @h
+      @user.clean_settings.array = @array
+      @user.clean_settings.boolean = @boolean
 
-      expect(@user.settings.fetch).to be_kind_of(Hash)
-      expect(@user.settings.fetch.keys.size).to eq 5
-      expect(@user.settings.number).to eq @number
-      expect(@user.settings.array).to eq @array
-      expect(@user.settings.string).to eq @string
-      expect(@user.settings.h).to eq @h
-      expect(@user.settings.boolean).to eq @boolean
+      expect(@user.clean_settings.fetch).to be_kind_of(Hash)
+      expect(@user.clean_settings.fetch.keys.size).to eq 5
+      expect(@user.clean_settings.number).to eq @number
+      expect(@user.clean_settings.array).to eq @array
+      expect(@user.clean_settings.string).to eq @string
+      expect(@user.clean_settings.h).to eq @h
+      expect(@user.clean_settings.boolean).to eq @boolean
     end
 
     it "settings available through hash or object notations" do
-      @user.settings.array = @array
-      @user.settings[:h] = @h
+      @user.clean_settings.array = @array
+      @user.clean_settings[:h] = @h
 
-      expect(@user.settings[:array]).to eq @array
-      expect(@user.settings.h).to eq @h
+      expect(@user.clean_settings[:array]).to eq @array
+      expect(@user.clean_settings.h).to eq @h
     end
 
     describe "scope :with_setting" do
       it "get users from target setting" do
         user_2 = User.create
 
-        @user.settings.boolean = @boolean
+        @user.clean_settings.boolean = @boolean
 
         expect(User.with_setting(:boolean).count).to eq 1
         expect(User.with_setting(:boolean).first).to eq @user
