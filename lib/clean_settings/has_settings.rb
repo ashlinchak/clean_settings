@@ -10,7 +10,7 @@ module CleanSettings
     end
 
     module InstanceMethods
-      def settings
+      def clean_settings
         CleanSettings::Ownerable.for_thing(self)
       end
     end
