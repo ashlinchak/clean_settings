@@ -125,6 +125,9 @@ class User < ActiveRecord::Base
   has_settings
 end
 ```
+Method `has_settings` has this option:
+- **method_name**. Default value is `settings`.
+
 And use it:
 
 ```ruby
@@ -132,6 +135,7 @@ And use it:
 @user.settings.subscribe_to_notifications = true
 @user.settings.subscribe_to_notifications # => true
 ```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/ashlinchak/clean_settings.
